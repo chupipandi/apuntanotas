@@ -1,3 +1,5 @@
+Mongoid.load!('config/mongoid.yml', :development)
+
 Rails.application.configure do
   config.cache_classes = false
 
