@@ -1,8 +1,18 @@
 require File.expand_path('../boot', __FILE__)
-
-require 'rails/all'
 require 'dotenv'
 Dotenv.load
+
+%w(
+  action_controller
+  action_mailer
+  active_resource
+  rails/test_unit
+).each do |framework|
+  begin
+    require "#{framework}/railtie"
+  rescue LoadError
+  end
+end
 
 Bundler.require(*Rails.groups)
 

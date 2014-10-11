@@ -7,7 +7,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     user = User.new(user_params)
 
     if user.save
-      issue_token(user, :created)
+      issue_token(user: user, status: :created)
     else
       render json: { errors: user.errors }, status: :bad_request
     end
@@ -17,7 +17,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     user = User.find_by(email: params[:email].downcase)
 
     if user && user.authenticate(params[:password])
-      issue_token(user)
+      issue_token(user: user)
     else
       render json:   { errors: 'Invalid email/password combination' },
              status: :unauthorized
